@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "material-importer"
+version = "0.1.0"
+description = "Import Sony RAW photos and videos into materials by trip day."
+authors = ["lancer"]
+readme = "README.md"
+packages = [{ include = "material_importer", from = "src" }]
+
+[tool.poetry.dependencies]
+python = ">=3.11,<4.0"
+rich = "^14.1.0"
+
+[tool.poetry.scripts]
+media-import = "material_importer.cli:main"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

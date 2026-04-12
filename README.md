@@ -1,42 +1,126 @@
-# Material Manager
+# material-manager
 
-Material Manager is a Python tool for organizing and extracting RAW photos and MP4 videos from a source directory, sorting them by creation time, and moving them to target folders with standardized filenames.
+`material-manager` is a local media-management repository. Its current shipped feature is the `material_importer` CLI for importing Sony camera RAW photos and videos into `/Users/lancer/materials`, grouped by trip day.
 
-## Features
-- Extract RAW files (e.g., .raw, .arw) and sort by EXIF creation time
-- Extract MP4 files and sort by filename date
-- Automatically renames files to a consistent format
-- Ignores duplicate and unwanted files
+## Business Flow
 
-## Requirements
-- Python 3.8+
-- exifread >= 3.0.0
+```mermaid
+flowchart LR
+    A[Mounted SD cards in /Volumes] --> B{Camera card found?}
+    B -->|Yes| C[Scan every matching card]
+    B -->|No| D[Fallback to /Users/lancer/import]
+    C --> E[Collect RAW and video files]
+    D --> E
+    E --> F[Resolve capture time]
+    F --> G{Time available?}
+    G -->|No| H[Skip and report]
+    G -->|Yes| I[Apply 04:00 trip-day cutoff]
+    I --> J[Compute SHA-256]
+    J --> K{Already imported?}
+    K -->|Yes| L[Skip duplicate]
+    K -->|No| M[Allocate destination name]
+    M --> N[Copy into materials/photos or materials/videos]
+    N --> O[Append manifest record]
+    H --> P[Rich summary in Terminal]
+    L --> P
+    O --> P
+```
 
-Install dependencies:
+## What It Does
+
+- Scans all mounted SD cards under `/Volumes`.
+- Treats any volume containing `DCIM` or `PRIVATE/M4ROOT` as a camera card.
+- Falls back to `/Users/lancer/import` when no card is mounted.
+- Imports `.arw` and `.raw` photos only.
+- Imports `.mp4`, `.mov`, and `.mxf` videos.
+- Groups files by trip day, with anything before `04:00` assigned to the previous day.
+- Copies files instead of moving them.
+- Shows a `rich` progress bar and summary tables in Terminal.
+- Skips duplicates using SHA-256 records stored in `/Users/lancer/materials/.material-import-manifest.jsonl`.
+
+## Output Layout
+
+- Photos: `/Users/lancer/materials/photos/YYYYMMDD`
+- Videos: `/Users/lancer/materials/videos/YYYYMMDD`
+
+Example filenames:
+
+- `raw_20260411_091912_01.arw`
+- `video_20260411_101858_01.mp4`
+
+## Setup
+
+Run this once from the repository root:
+
 ```bash
-pip install -r requirements.txt
+make setup
 ```
 
-## Usage
-Edit `main.py` to set your target date and source directory. Example:
-```python
-from utils.file_helper import FileHelper
+`make setup` will:
 
-target = "20250920"
-source = FileHelper("/Users/lancer/import")
-source.extract_raw(f"/Users/lancer/materials/{target}/photo")
-source.extract_mp4(f"/Users/lancer/materials/{target}/video")
-```
-Run the script:
+- install `python`, `poetry`, and `exiftool` through Homebrew
+- install the Poetry environment
+- copy the double-click launcher to `/Users/lancer/import/media-import.command`
+
+## Commands
+
+Run tests:
+
 ```bash
-python main.py
+make test
 ```
 
-## For AI Agents
-- The main entry point is `main.py`.
-- Core logic is in `utils/file_helper.py` (`FileHelper` class).
-- `extract_raw(target_path)` and `extract_mp4(target_path)` are the main methods for file extraction and sorting.
-- All file operations use Python's standard libraries and `exifread` for EXIF data.
+Run a safe end-to-end smoke check into `/tmp`:
 
-## License
-MIT
+```bash
+make smoke-test
+```
+
+`make smoke-test` runs the importer twice:
+
+- first pass imports into `/tmp/material-manager-smoke`
+- second pass confirms duplicate detection hits on the already imported files
+
+Run the importer from the terminal:
+
+```bash
+make run
+```
+
+Run the importer manually through Poetry:
+
+```bash
+poetry run media-import
+```
+
+Read the AI workflow docs:
+
+```bash
+open .ai/README.md
+```
+
+## Verification Workflow
+
+For code changes, use this order:
+
+1. `make test`
+2. `make smoke-test`
+3. Only write into the real `/Users/lancer/materials` library when explicitly intended
+
+## Double-Click Launcher
+
+After `make setup`, double-click:
+
+`/Users/lancer/import/media-import.command`
+
+The launcher will:
+
+- look for the repository in `~/projects/material-manager`
+- tell you to run `make setup` if Poetry or the virtualenv is missing
+
+## Notes
+
+- Videos use embedded metadata first.
+- When video metadata is missing, Sony clip XML in `PRIVATE/M4ROOT/CLIP/*.XML` is used as a fallback.
+- `videos/YYYYMMDD` is created only when at least one video is imported for that day.
+- AI workflow docs live under `.ai/`.
