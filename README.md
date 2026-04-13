@@ -2,6 +2,12 @@
 
 `material-organize` is the organizing/import side of the Material Manager product line. Its current shipped feature is the `material_importer` CLI for importing Sony camera RAW photos and videos into a material folder, grouped by trip day.
 
+Part of the Material Manager suite:
+
+- [`material-manager`](https://github.com/Team-Cyan/material-manager): suite entry point and cross-repo documentation
+- [`material-judge`](https://github.com/Team-Cyan/material-judge): AI-assisted judging and review
+- [`material-organize`](https://github.com/Team-Cyan/material-organize): import and organization workflows
+
 ## Business Flow
 
 ```mermaid
