@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "material-importer"
+name = "material-organize"
 version = "0.1.0"
 description = "Import Sony RAW photos and videos into materials by trip day."
 authors = ["lancer"]

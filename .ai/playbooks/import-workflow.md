@@ -12,7 +12,7 @@ poetry run python -m unittest discover -s tests -t . -v
 3. Run one smoke check into a temporary destination:
 
 ```bash
-poetry run media-import --materials-root /tmp/material-manager-smoke
+poetry run media-import --materials-root /tmp/material-organize-smoke
 ```
 
 4. Confirm:
@@ -27,12 +27,12 @@ Update all of:
 
 - `README.md`
 - `Makefile`
-- `scripts/media-import.command`
+- `scripts/import-here.command`
 - `.github/copilot-instructions.md`
 - `.ai/shared-context.md`
 
 ## When Adding New Material Features
 
-- Keep the repository named `material-manager`.
+- Keep the repository named `material-organize`.
 - Add new CLI commands beside `media-import` rather than overloading one entry point.
 - Document new workflows in `.ai/playbooks/` before expanding `.github/copilot-instructions.md`.

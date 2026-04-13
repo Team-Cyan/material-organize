@@ -14,7 +14,7 @@ No high-severity code defects were found in the current `material_importer` slic
 
 ### Option 1: Add a Smoke-Test Workflow
 
-- Add `make smoke-test` that always writes into `/tmp/material-manager-smoke`.
+- Add `make smoke-test` that always writes into `/tmp/material-organize-smoke`.
 - Good next step for repeatable local verification.
 
 ### Option 2: Add CLI-Level Integration Tests
@@ -24,6 +24,6 @@ No high-severity code defects were found in the current `material_importer` slic
 
 ### Option 3: Prepare for Multi-Command Expansion
 
-- Keep `material-manager` as the repository name.
+- Repository name is now `material-organize`.
 - Add future commands like `media-audit` or `media-report` beside `media-import`.
 - Expand `.ai/playbooks/` per command instead of overloading one generic workflow document.

@@ -1,6 +1,6 @@
 # AI Workspace
 
-This directory is the AI-facing source of truth for `material-manager`.
+This directory is the AI-facing source of truth for `material-organize`.
 
 ## Read This First
 

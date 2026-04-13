@@ -1,9 +1,9 @@
 SHELL := /bin/zsh
 BREW := /opt/homebrew/bin/brew
 POETRY := /opt/homebrew/bin/poetry
-IMPORT_DIR := /Users/lancer/import
-LAUNCHER_SOURCE := scripts/media-import.command
-LAUNCHER_TARGET := $(IMPORT_DIR)/media-import.command
+MATERIALS_DIR := /Users/lancer/materials
+LAUNCHER_SOURCE := scripts/import-here.command
+LAUNCHER_TARGET := $(MATERIALS_DIR)/Import\ Here.command
 
 .PHONY: setup test smoke-test run install-launcher
 
@@ -17,13 +17,13 @@ test:
 	$(POETRY) run python -m unittest discover -s tests -t . -v
 
 smoke-test:
-	rm -rf /tmp/material-manager-smoke
-	@first_log=$$(mktemp /tmp/material-manager-smoke-first.XXXXXX); \
-	second_log=$$(mktemp /tmp/material-manager-smoke-second.XXXXXX); \
-	echo "First pass: import into /tmp/material-manager-smoke"; \
-	$(POETRY) run media-import --materials-root /tmp/material-manager-smoke --volumes-root /Volumes --fallback-root /Users/lancer/import | tee "$$first_log"; \
+	rm -rf /tmp/material-organize-smoke
+	@first_log=$$(mktemp /tmp/material-organize-smoke-first.XXXXXX); \
+	second_log=$$(mktemp /tmp/material-organize-smoke-second.XXXXXX); \
+	echo "First pass: import into /tmp/material-organize-smoke"; \
+	$(POETRY) run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$first_log"; \
 	echo "Second pass: verify duplicate detection"; \
-	$(POETRY) run media-import --materials-root /tmp/material-manager-smoke --volumes-root /Volumes --fallback-root /Users/lancer/import | tee "$$second_log"; \
+	$(POETRY) run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$second_log"; \
 	python3 scripts/verify-smoke-duplicates.py "$$second_log" || { echo "smoke-test failed: second pass did not report duplicates"; exit 1; }; \
 	echo "smoke-test passed: duplicate detection confirmed on second run"
 
@@ -31,6 +31,6 @@ run:
 	$(POETRY) run media-import
 
 install-launcher:
-	mkdir -p "$(IMPORT_DIR)"
+	mkdir -p "$(MATERIALS_DIR)"
 	cp "$(LAUNCHER_SOURCE)" "$(LAUNCHER_TARGET)"
 	chmod +x "$(LAUNCHER_TARGET)"
