@@ -17,16 +17,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="Destination root for imported materials.",
     )
     parser.add_argument(
-        "--fallback-root",
+        "--source-root",
         type=Path,
-        default=Path("/Users/lancer/import"),
-        help="Fallback source root when no SD card is mounted.",
+        help="Explicit source directory to import from. When provided, SD card discovery is skipped.",
     )
     parser.add_argument(
         "--volumes-root",
         type=Path,
         default=Path("/Volumes"),
-        help="Directory used to scan for mounted SD cards.",
+        help="Directory used to scan for mounted SD cards when --source-root is not provided.",
     )
     parser.add_argument(
         "--cutoff-hour",
@@ -40,10 +39,20 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
-    source_roots = discover_source_roots(
-        volumes_root=args.volumes_root,
-        fallback_root=args.fallback_root,
-    )
+    if args.source_root is not None:
+        source_root = args.source_root.expanduser().resolve()
+        if not source_root.is_dir():
+            print(f"Error: source root does not exist or is not a directory: {source_root}")
+            return 1
+        source_roots = [source_root]
+    else:
+        source_roots = discover_source_roots(
+            volumes_root=args.volumes_root,
+            fallback_root=None,
+        )
+        if not source_roots:
+            print("Error: no SD card was detected. Drag an import folder onto the launcher or use --source-root.")
+            return 1
     importer = build_default_importer(
         materials_root=args.materials_root,
         source_roots=source_roots,

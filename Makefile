@@ -14,7 +14,7 @@ setup:
 	$(MAKE) install-launcher
 
 test:
-	$(POETRY) run python -m unittest discover -s tests -t . -v
+	PYTHONPATH=src $(POETRY) run python -m unittest discover -s tests -t . -v
 
 smoke-test:
 	rm -rf /tmp/material-organize-smoke

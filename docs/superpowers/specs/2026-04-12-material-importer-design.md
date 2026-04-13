@@ -9,7 +9,7 @@ Build a double-clickable importer for Sony camera media that copies RAW photos a
 - Prefer mounted SD cards under `/Volumes`.
 - Treat any volume containing `DCIM` or `PRIVATE/M4ROOT` as a camera source.
 - Import from every matching card when multiple cards are mounted.
-- If no matching card is mounted, fall back to `/Users/lancer/import`.
+- If no matching card is mounted, require an explicit source directory from the launcher or `--source-root`.
 
 ## Media Rules
 
@@ -51,7 +51,7 @@ Build a double-clickable importer for Sony camera media that copies RAW photos a
 ## Runtime UX
 
 - Provide a Poetry-managed CLI named `media-import`.
-- Provide a double-click launcher at `/Users/lancer/import/media-import.command`.
+- Provide a double-click launcher at `/Users/lancer/materials/Import Here.command`.
 - The launcher should:
   - Locate the repository automatically.
   - Run the CLI through Poetry.

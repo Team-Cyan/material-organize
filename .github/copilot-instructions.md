@@ -1,13 +1,13 @@
-# Material Manager - AI Workflow
+# Material Organize - AI Workflow
 
 Read `.ai/README.md` first.
 
 ## Current Architecture
 
-- Repository root: `~/projects/material-manager`
+- Repository root: `~/projects/material-organize`
 - Python package: `src/material_importer`
 - CLI command: `poetry run media-import`
-- Double-click launcher: `/Users/lancer/import/media-import.command`
+- Double-click launcher: `/Users/lancer/materials/Import Here.command`
 
 ## Required Read Order
 

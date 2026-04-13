@@ -4,7 +4,7 @@
 
 **Goal:** Rebuild the repository as a Poetry-managed `material_importer` project that imports Sony RAW photos and videos into `/Users/lancer/materials` by trip day.
 
-**Architecture:** A small CLI package discovers source roots, extracts capture timestamps with `exiftool` plus Sony XML fallback, groups media by trip day, deduplicates by SHA-256 manifest, and copies files into stable destination folders. A separate `.command` launcher in `/Users/lancer/import` invokes the CLI through Poetry for double-click use.
+**Architecture:** A small CLI package discovers source roots, extracts capture timestamps with `exiftool` plus Sony XML fallback, groups media by trip day, deduplicates by SHA-256 manifest, and copies files into stable destination folders. A separate `.command` launcher in `/Users/lancer/materials` invokes the CLI through Poetry for double-click use and accepts a dropped source folder when needed.
 
 **Tech Stack:** Python 3.13+, Poetry, standard library `unittest`, external `exiftool`
 
@@ -62,7 +62,7 @@ git commit -m "build: create material importer package skeleton"
 
 Add tests that:
 - detect two mounted card roots under a fake `/Volumes`
-- fall back to the import folder when no card is mounted
+- return no sources when no card is mounted and no explicit source is provided
 
 - [ ] **Step 2: Run test to verify it fails**
 
@@ -74,7 +74,7 @@ Expected: FAIL because `material_importer.sources` does not exist
 Implement helpers that:
 - identify camera roots by `DCIM` or `PRIVATE/M4ROOT`
 - return all mounted card roots
-- fall back to `/Users/lancer/import` when no cards exist
+- return no sources when no cards exist and no explicit fallback is provided
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -205,7 +205,7 @@ git commit -m "feat: add import runner and cli"
 ### Task 6: Double-Click Launcher and Real Verification
 
 **Files:**
-- Create: `/Users/lancer/import/media-import.command`
+- Create: `/Users/lancer/materials/Import Here.command`
 - Modify: `README.md`
 
 - [ ] **Step 1: Write the failing verification command**
@@ -214,7 +214,7 @@ Run the launcher manually and confirm it does not yet exist.
 
 - [ ] **Step 2: Run check to verify it fails**
 
-Run: `ls /Users/lancer/import/media-import.command`
+Run: `ls /Users/lancer/materials/Import\ Here.command`
 Expected: FAIL with `No such file or directory`
 
 - [ ] **Step 3: Write minimal implementation**
@@ -230,8 +230,8 @@ Update the README with Poetry and launcher usage.
 
 Run:
 - `poetry run python -m unittest discover -s tests -v`
-- `poetry run media-import --materials-root /tmp/materials-test --fallback-root /Users/lancer/import`
-- `open /Users/lancer/import/media-import.command` for a manual smoke test if needed
+- `poetry run media-import --materials-root /tmp/materials-test --source-root /path/to/import-folder`
+- `open /Users/lancer/materials/Import\ Here.command` for a manual smoke test if needed
 
 Expected:
 - all tests PASS
@@ -240,6 +240,6 @@ Expected:
 - [ ] **Step 5: Commit**
 
 ```bash
-git add README.md /Users/lancer/import/media-import.command
+git add README.md scripts/import-here.command
 git commit -m "feat: add double-click launcher"
 ```

@@ -36,3 +36,24 @@ class SourceDiscoveryTest(unittest.TestCase):
             )
 
             self.assertEqual(roots, [fallback_root])
+
+    def test_returns_empty_when_no_cards_exist_and_no_fallback_is_given(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            volumes_root = Path(tmp_dir) / "Volumes"
+            volumes_root.mkdir()
+
+            roots = discover_source_roots(
+                volumes_root=volumes_root,
+                fallback_root=None,
+            )
+
+            self.assertEqual(roots, [])
+
+    def test_default_behavior_does_not_invent_legacy_import_folder(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            volumes_root = Path(tmp_dir) / "Volumes"
+            volumes_root.mkdir()
+
+            roots = discover_source_roots(volumes_root=volumes_root)
+
+            self.assertEqual(roots, [])

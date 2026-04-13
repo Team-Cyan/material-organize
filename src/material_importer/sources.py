@@ -9,7 +9,7 @@ VIDEO_EXTENSIONS = {".mp4", ".mov", ".mxf"}
 
 def discover_source_roots(
     volumes_root: Path = Path("/Volumes"),
-    fallback_root: Path = Path("/Users/lancer/import"),
+    fallback_root: Path | None = None,
 ) -> list[Path]:
     if volumes_root.exists():
         camera_roots = sorted(
@@ -19,6 +19,9 @@ def discover_source_roots(
         )
         if camera_roots:
             return camera_roots
+
+    if fallback_root is None:
+        return []
 
     return [fallback_root]
 

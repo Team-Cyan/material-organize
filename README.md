@@ -101,7 +101,7 @@ poetry run media-import
 Run the importer against a specific source directory:
 
 ```bash
-poetry run media-import --materials-root /Users/lancer/materials --source-root /Users/lancer/import
+poetry run media-import --materials-root /Users/lancer/materials --source-root /path/to/import-folder
 ```
 
 Read the AI workflow docs:
