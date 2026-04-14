@@ -6,7 +6,7 @@ Read `.ai/README.md` first.
 
 - Repository root: `~/projects/material-organize`
 - Python package: `src/material_importer`
-- CLI command: `poetry run media-import`
+- CLI command: `uv run media-import`
 - Double-click launcher: `/Users/lancer/materials/Import Here.command`
 
 ## Required Read Order

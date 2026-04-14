@@ -1,3 +1,3 @@
 brew "python"
-brew "poetry"
+brew "uv"
 brew "exiftool"

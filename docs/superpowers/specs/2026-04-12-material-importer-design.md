@@ -50,11 +50,11 @@ Build a double-clickable importer for Sony camera media that copies RAW photos a
 
 ## Runtime UX
 
-- Provide a Poetry-managed CLI named `media-import`.
+- Provide a uv-managed CLI named `media-import`.
 - Provide a double-click launcher at `/Users/lancer/materials/Import Here.command`.
 - The launcher should:
   - Locate the repository automatically.
-  - Run the CLI through Poetry.
+  - Run the CLI through uv.
   - Keep the Terminal window open so the summary is visible.
 
 ## Validation

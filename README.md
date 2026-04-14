@@ -63,8 +63,8 @@ make setup
 
 `make setup` will:
 
-- install `python`, `poetry`, and `exiftool` through Homebrew
-- install the Poetry environment
+- install `python`, `uv`, and `exiftool` through Homebrew
+- create the uv environment
 - copy the double-click launcher to `/Users/lancer/materials/Import Here.command`
 
 ## Commands
@@ -73,6 +73,18 @@ Run tests:
 
 ```bash
 make test
+```
+
+Refresh the lockfile to the latest stable dependency set and verify it:
+
+```bash
+make deps-refresh
+```
+
+Refresh and commit `uv.lock` only if tests pass:
+
+```bash
+make deps-refresh-commit
 ```
 
 Run a safe end-to-end smoke check into `/tmp`:
@@ -92,16 +104,16 @@ Run the importer from the terminal:
 make run
 ```
 
-Run the importer manually through Poetry:
+Run the importer manually through uv:
 
 ```bash
-poetry run media-import
+uv run media-import
 ```
 
 Run the importer against a specific source directory:
 
 ```bash
-poetry run media-import --materials-root /Users/lancer/materials --source-root /path/to/import-folder
+uv run media-import --materials-root /Users/lancer/materials --source-root /path/to/import-folder
 ```
 
 Read the AI workflow docs:
@@ -130,7 +142,7 @@ The launcher will:
 - import from mounted SD cards when launched directly
 - import from a dropped folder when you drag a folder onto the launcher
 - look for the repository in `~/projects/material-organize`
-- tell you to run `make setup` if Poetry or the virtualenv is missing
+- tell you to run `make setup` if uv or the environment is missing
 
 ## Notes
 

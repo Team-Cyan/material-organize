@@ -14,8 +14,8 @@ fi
 
 cd "${REPO_ROOT}"
 
-if ! command -v poetry >/dev/null 2>&1; then
-  echo "poetry is not installed."
+if ! command -v uv >/dev/null 2>&1; then
+  echo "uv is not installed."
   echo "Run: make setup"
   echo
   read -k 1 "?Press any key to close..."
@@ -40,9 +40,9 @@ if [[ $# -ge 1 ]]; then
     exit 1
   fi
 
-  poetry run media-import --materials-root "${MATERIALS_ROOT}" --source-root "${SOURCE_ROOT}"
+  uv run media-import --materials-root "${MATERIALS_ROOT}" --source-root "${SOURCE_ROOT}"
 else
-  poetry run media-import --materials-root "${MATERIALS_ROOT}"
+  uv run media-import --materials-root "${MATERIALS_ROOT}"
 fi
 echo
 read -k 1 "?Press any key to close..."

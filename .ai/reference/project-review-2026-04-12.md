@@ -19,7 +19,7 @@ No high-severity code defects were found in the current `material_importer` slic
 
 ### Option 2: Add CLI-Level Integration Tests
 
-- Add subprocess-based tests for `poetry run media-import`.
+- Add subprocess-based tests for `uv run media-import`.
 - Best if command-line behavior is expected to grow.
 
 ### Option 3: Prepare for Multi-Command Expansion

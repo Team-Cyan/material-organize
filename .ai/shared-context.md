@@ -8,7 +8,7 @@
 
 - The repository root is expected at `~/projects/material-organize`.
 - The double-click entry point is `/Users/lancer/materials/Import Here.command`.
-- The CLI entry point is `poetry run media-import`.
+- The CLI entry point is `uv run media-import`.
 - Destination library root defaults to `/Users/lancer/materials`.
 - Source priority is:
   1. an explicit dropped source directory
@@ -29,7 +29,7 @@
 make setup
 make test
 make run
-poetry run media-import --materials-root /tmp/materials-check
+uv run media-import --materials-root /tmp/materials-check
 ```
 
 ## Guardrails

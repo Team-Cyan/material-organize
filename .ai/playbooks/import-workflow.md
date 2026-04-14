@@ -12,7 +12,7 @@ poetry run python -m unittest discover -s tests -t . -v
 3. Run one smoke check into a temporary destination:
 
 ```bash
-poetry run media-import --materials-root /tmp/material-organize-smoke
+uv run media-import --materials-root /tmp/material-organize-smoke
 ```
 
 4. Confirm:

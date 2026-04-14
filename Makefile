@@ -1,34 +1,47 @@
 SHELL := /bin/zsh
 BREW := /opt/homebrew/bin/brew
-POETRY := /opt/homebrew/bin/poetry
 MATERIALS_DIR := /Users/lancer/materials
 LAUNCHER_SOURCE := scripts/import-here.command
 LAUNCHER_TARGET := $(MATERIALS_DIR)/Import\ Here.command
 
-.PHONY: setup test smoke-test run install-launcher
+.PHONY: setup deps-refresh deps-refresh-commit test smoke-test run install-launcher
 
 setup:
 	@command -v $(BREW) >/dev/null 2>&1 || { echo "Homebrew is required. Install Homebrew first."; exit 1; }
 	$(BREW) bundle --file Brewfile
-	$(POETRY) install
+	uv sync --all-groups
 	$(MAKE) install-launcher
 
+deps-refresh:
+	uv lock --upgrade
+	uv sync --all-groups --reinstall
+	$(MAKE) test
+
+deps-refresh-commit:
+	$(MAKE) deps-refresh
+	@if git diff --quiet -- uv.lock; then \
+		echo "uv.lock unchanged; nothing to commit."; \
+	else \
+		git add uv.lock; \
+		git commit -m "chore(deps): refresh uv lock"; \
+	fi
+
 test:
-	PYTHONPATH=src $(POETRY) run python -m unittest discover -s tests -t . -v
+	uv run python -m unittest discover -s tests -t . -v
 
 smoke-test:
 	rm -rf /tmp/material-organize-smoke
 	@first_log=$$(mktemp /tmp/material-organize-smoke-first.XXXXXX); \
 	second_log=$$(mktemp /tmp/material-organize-smoke-second.XXXXXX); \
 	echo "First pass: import into /tmp/material-organize-smoke"; \
-	$(POETRY) run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$first_log"; \
+	uv run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$first_log"; \
 	echo "Second pass: verify duplicate detection"; \
-	$(POETRY) run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$second_log"; \
+	uv run media-import --materials-root /tmp/material-organize-smoke --volumes-root /Volumes | tee "$$second_log"; \
 	python3 scripts/verify-smoke-duplicates.py "$$second_log" || { echo "smoke-test failed: second pass did not report duplicates"; exit 1; }; \
 	echo "smoke-test passed: duplicate detection confirmed on second run"
 
 run:
-	$(POETRY) run media-import
+	uv run media-import
 
 install-launcher:
 	mkdir -p "$(MATERIALS_DIR)"

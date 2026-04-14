@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Rebuild the repository as a Poetry-managed `material_importer` project that imports Sony RAW photos and videos into `/Users/lancer/materials` by trip day.
+**Goal:** Rebuild the repository as a uv-managed `material_importer` project that imports Sony RAW photos and videos into `/Users/lancer/materials` by trip day.
 
-**Architecture:** A small CLI package discovers source roots, extracts capture timestamps with `exiftool` plus Sony XML fallback, groups media by trip day, deduplicates by SHA-256 manifest, and copies files into stable destination folders. A separate `.command` launcher in `/Users/lancer/materials` invokes the CLI through Poetry for double-click use and accepts a dropped source folder when needed.
+**Architecture:** A small CLI package discovers source roots, extracts capture timestamps with `exiftool` plus Sony XML fallback, groups media by trip day, deduplicates by SHA-256 manifest, and copies files into stable destination folders. A separate `.command` launcher in `/Users/lancer/materials` invokes the CLI through uv for double-click use and accepts a dropped source folder when needed.
 
-**Tech Stack:** Python 3.13+, Poetry, standard library `unittest`, external `exiftool`
+**Tech Stack:** Python 3.13+, uv, standard library `unittest`, external `exiftool`
 
 ---
 
@@ -38,7 +38,7 @@ Expected: FAIL with `ModuleNotFoundError: No module named 'material_importer'`
 
 - [ ] **Step 3: Write minimal implementation**
 
-Create a Poetry project using `src/` layout and add an empty package with `__main__.py`.
+Create a uv project using `src/` layout and add an empty package with `__main__.py`.
 
 - [ ] **Step 4: Run test to verify it passes**
 
@@ -221,16 +221,16 @@ Expected: FAIL with `No such file or directory`
 
 Add a launcher that:
 - locates the repository automatically
-- runs `poetry run media-import`
+- runs `uv run media-import`
 - pauses for review before closing
 
-Update the README with Poetry and launcher usage.
+Update the README with uv and launcher usage.
 
 - [ ] **Step 4: Run verification**
 
 Run:
-- `poetry run python -m unittest discover -s tests -v`
-- `poetry run media-import --materials-root /tmp/materials-test --source-root /path/to/import-folder`
+- `uv run python -m unittest discover -s tests -v`
+- `uv run media-import --materials-root /tmp/materials-test --source-root /path/to/import-folder`
 - `open /Users/lancer/materials/Import\ Here.command` for a manual smoke test if needed
 
 Expected:
