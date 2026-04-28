@@ -26,4 +26,4 @@ No high-severity code defects were found in the current `material_importer` slic
 
 - Repository name is now `material-organize`.
 - Add future commands like `media-audit` or `media-report` beside `media-import`.
-- Expand `.ai/playbooks/` per command instead of overloading one generic workflow document.
+- Expand `docs/ai/playbooks/` per command instead of overloading one generic workflow document.

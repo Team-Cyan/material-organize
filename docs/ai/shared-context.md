@@ -28,6 +28,7 @@
 ```bash
 make setup
 make test
+make smoke-test
 make run
 uv run media-import --materials-root /tmp/materials-check
 ```

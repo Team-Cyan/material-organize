@@ -4,19 +4,21 @@ This directory is the AI-facing source of truth for `material-organize`.
 
 ## Read This First
 
-1. `shared-context.md`
-2. `architecture/module-boundaries.md`
-3. one relevant file in `playbooks/`
-4. one relevant file in `checklists/` before finalizing changes
+1. `project-overview.md`
+2. `shared-context.md`
+3. `modules/importer-boundaries.md`
+4. one relevant file in `playbooks/`
+5. one relevant file in `checklists/` before finalizing changes
 
 ## Directory Layout
 
-- `shared-context.md`: repository purpose, runtime assumptions, and core commands
-- `architecture/module-boundaries.md`: ownership boundaries and safe edit zones
+- `project-overview.md`: repository purpose, runtime model, and doc strategy
+- `shared-context.md`: current assumptions, runtime surfaces, and core commands
+- `modules/importer-boundaries.md`: ownership boundaries and safe edit zones
 - `playbooks/import-workflow.md`: the main workflow for import-related changes
 - `checklists/import-change-checklist.md`: final review checklist for importer changes
 - `memory/ai-collaboration-decisions.md`: durable repository-level decisions for AI tools
-- `reference/project-review-2026-04-12.md`: current project review findings and refine options
+- `reference/project-review-2026-04-12.md`: review findings and refine options
 
 ## Usage Notes
 

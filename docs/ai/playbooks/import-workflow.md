@@ -6,13 +6,13 @@
 2. Run:
 
 ```bash
-poetry run python -m unittest discover -s tests -t . -v
+make test
 ```
 
-3. Run one smoke check into a temporary destination:
+3. Run a smoke check into a temporary destination:
 
 ```bash
-uv run media-import --materials-root /tmp/material-organize-smoke
+make smoke-test
 ```
 
 4. Confirm:
@@ -29,10 +29,10 @@ Update all of:
 - `Makefile`
 - `scripts/import-here.command`
 - `.github/copilot-instructions.md`
-- `.ai/shared-context.md`
+- `docs/ai/shared-context.md`
 
 ## When Adding New Material Features
 
 - Keep the repository named `material-organize`.
 - Add new CLI commands beside `media-import` rather than overloading one entry point.
-- Document new workflows in `.ai/playbooks/` before expanding `.github/copilot-instructions.md`.
+- Document new workflows in `docs/ai/playbooks/` before expanding `.github/copilot-instructions.md`.

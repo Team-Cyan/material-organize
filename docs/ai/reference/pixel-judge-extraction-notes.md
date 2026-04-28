@@ -12,7 +12,7 @@ Do not copy `/Users/lancer/projects/pixel-judge` into this repository as a modul
 
 ## What To Reuse Instead
 
-- `.ai` directory structure
+- `docs/ai/` documentation structure
 - checklist and playbook style
 - module-boundary documentation style
 - handoff and workflow writing conventions

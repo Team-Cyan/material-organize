@@ -119,7 +119,7 @@ uv run media-import --materials-root /Users/lancer/materials --source-root /path
 Read the AI workflow docs:
 
 ```bash
-open .ai/README.md
+open docs/ai/README.md
 ```
 
 ## Verification Workflow
@@ -149,4 +149,4 @@ The launcher will:
 - Videos use embedded metadata first.
 - When video metadata is missing, Sony clip XML in `PRIVATE/M4ROOT/CLIP/*.XML` is used as a fallback.
 - `videos/YYYYMMDD` is created only when at least one video is imported for that day.
-- AI workflow docs live under `.ai/`.
+- AI workflow docs live under `docs/ai/`.
