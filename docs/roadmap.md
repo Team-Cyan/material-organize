@@ -6,6 +6,7 @@
 - Double-click launcher plus CLI workflow for local macOS usage
 - Duplicate tracking through the manifest file under the materials library
 - Docs-first migration from top-level `.ai/` into `docs/ai/`
+- Added `.agents/` as the thin repo-local agent asset layer
 
 ## In Progress
 

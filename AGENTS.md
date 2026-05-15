@@ -20,6 +20,7 @@ Do not start by reading every historical note.
 ## Repository Model
 
 - `AGENTS.md`: thin agent entrypoint
+- `.agents/`: repo-local agent assets and reusable prompts
 - `docs/ai/`: reusable AI knowledge base
 - `docs/roadmap.md`: current repository state and next work
 - `docs/operations/`: operator workflows and handoff notes
@@ -30,6 +31,7 @@ Do not start by reading every historical note.
 - Keep AI-facing docs in English.
 - Reply to the human user in their preferred language.
 - Prefer small, well-bounded sessions.
+- Keep `.agents/` thin; keep durable knowledge in `docs/`.
 - Verify behavior in `/tmp/...` unless the user explicitly asks to write into the real materials library.
 - Keep README, launcher, and `docs/ai/` docs aligned whenever changing setup or workflow.
 
@@ -42,6 +44,7 @@ Do not start by reading every historical note.
 ## Useful Docs
 
 - `docs/README.md`
+- `.agents/README.md`
 - `docs/ai/README.md`
 - `docs/ai/project-overview.md`
 - `docs/ai/shared-context.md`

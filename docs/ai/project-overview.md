@@ -33,6 +33,7 @@
 ## Documentation Strategy
 
 - root `AGENTS.md` for entry routing
+- `.agents/` for repo-local agent assets
 - `docs/ai/` for reusable knowledge
 - `docs/roadmap.md` for current state
 - `docs/operations/` for handoff notes
